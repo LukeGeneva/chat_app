@@ -1,0 +1,35 @@
+{
+  "name": "chat_app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@material-ui/core": "^3.9.2",
+    "@material-ui/icons": "^3.0.2",
+    "express": "^4.16.4",
+    "next": "^8.0.3",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.5",
+    "react-dom": "^16.8.5",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0"
+  },
+  "devDependencies": {
+    "prettier": "^1.16.4"
+  },
+  "scripts": {
+    "dev": "node server.js",
+    "build": "next dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SeanGroff/chat_app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SeanGroff/chat_app/issues"
+  },
+  "homepage": "https://github.com/SeanGroff/chat_app#readme"
+}
