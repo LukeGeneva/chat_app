@@ -7,21 +7,13 @@ const dev = process.env.NODE_ENV !== 'production'
 const nextApp = next({ dev })
 const nextHandler = nextApp.getRequestHandler()
 
-let port = 3000
+let port = 1337
 
 io.on('connect', socket => {
   console.log('user connected')
 
-  socket.emit('hello', {
-    message: 'Hello, World!',
-  })
-
-  socket.on('user is typing', () => {
-    console.log('user is typing')
-    io.emit('user is typing', { isTyping: 'a user is typing...' })
-  })
-
   socket.on('chat message', message => {
+    console.log(`new chat message: ${message}`)
     io.emit('chat message', message)
   })
 
