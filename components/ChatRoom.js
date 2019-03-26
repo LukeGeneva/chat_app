@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState, useCallback } from 'react'
 import io from 'socket.io-client'
 import PropTypes from 'prop-types'
 import Paper from '@material-ui/core/Paper'
@@ -20,20 +20,22 @@ const styles = () => ({
 
 const ChatRoom = ({ classes }) => {
   const [history, setHistory] = useState([])
+  const historyRef = useRef([])
 
   useEffect(() => {
-    socket.on('chat message', message => {
-      setHistory([...history, message])
+    const listener = socket.on('chat message', message => {
+      historyRef.current.push(message)
+      setHistory([...historyRef.current])
     })
 
     return () => {
-      socket.removeListener('chat message')
+      socket.removeListener('chat message', listener)
     }
-  })
+  }, [])
 
-  const handleMessage = message => {
+  const handleMessage = useCallback((message) => {
     socket.emit('chat message', message)
-  }
+  }, [])
 
   return (
     <Paper className={classes.chatRoom}>
