@@ -1,57 +1,41 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
+import withStyles from '@material-ui/core/styles/withStyles'
 import Paper from '@material-ui/core/Paper'
 import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import Avatar from '@material-ui/core/Avatar'
-import PersonIcon from '@material-ui/icons/Person'
-import Divider from '@material-ui/core/Divider'
 
-const ChatHistory = ({ history }) => {
+import ChatMessages from './ChatMessages'
+
+const styles = () => ({
+  chatHistory: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    height: 400,
+    width: 400,
+    margin: '16px 0',
+    padding: '16px',
+    overflow: 'auto',
+  },
+  messages: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: '1 0 100%',
+  },
+})
+
+const ChatHistory = ({ classes, history }) => {
   return (
-    <Paper
-      style={{
-        display: 'flex',
-        alignItems: 'flex-end',
-        height: 400,
-        width: 400,
-        margin: '16px 0',
-        padding: '16px',
-        overflow: 'auto',
-      }}
-    >
-      <List>
-        {history && history.length ? (
-          history.map((message, index) => {
-            return (
-              <Fragment key={index}>
-                <ListItem>
-                  <Avatar>
-                    <PersonIcon color={getIconColor(index)} />
-                  </Avatar>
-                  <ListItemText primary={message} />
-                </ListItem>
-                <li>
-                  <Divider variant="inset" />
-                </li>
-              </Fragment>
-            )
-          })
-        ) : (
-          <div>nothing</div>
-        )}
+    <Paper className={classes.chatHistory}>
+      <List className={classes.messages}>
+        <ChatMessages chatHistory={history} />
       </List>
     </Paper>
   )
 }
 
-function getIconColor(index) {
-  return index % 2 === 0 ? 'primary' : 'secondary'
-}
-
 ChatHistory.propTypes = {
+  classes: PropTypes.object.isRequired,
   history: PropTypes.array,
 }
 
-export default ChatHistory
+export default withStyles(styles)(ChatHistory)
